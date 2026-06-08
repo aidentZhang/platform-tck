@@ -24,16 +24,16 @@
     </parent>
     <groupId>jakarta</groupId>
     <artifactId>glassfish.javaee-module-tck</artifactId>
-    <version>11.0.1</version>
+    <version>12.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
         <glassfish.toplevel.dir>glassfish8</glassfish.toplevel.dir>
-        <jakarta.platform.version>11.0.0-M2</jakarta.platform.version>
-        <glassfish.runner.version>11.0.1</glassfish.runner.version>
+        <jakarta.platform.version>11.0.0</jakarta.platform.version>
+        <glassfish.runner.version>11.0.2</glassfish.runner.version>
         <glassfish.version>8.0.0-M11</glassfish.version>
         <tck.artifactId>javaee-tck</tck.artifactId>
-        <tck.version>11.0.1-SNAPSHOT</tck.version>
+        <tck.version>12.0.0-SNAPSHOT</tck.version>
     </properties>
 
     <dependencyManagement>
@@ -81,7 +81,7 @@
             <artifactId>arquillian-container-test-spi</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.omnifaces.arquillian</groupId>
+            <groupId>ee.omnifish.arquillian</groupId>
             <artifactId>arquillian-glassfish-server-managed</artifactId>
             <scope>test</scope>
         </dependency>
@@ -127,6 +127,8 @@
                         </goals>
                         <configuration>
                             <dependenciesToScan>jakarta.tck:${tck.artifactId}</dependenciesToScan>
+                            <!-- Suppress package warnings for test packages -->
+                            <trimStackTrace>false</trimStackTrace>
                             <systemPropertyVariables>
                                 <glassfish.home>${project.build.directory}/${glassfish.toplevel.dir}</glassfish.home>
                                 <glassfish.maxHeapSize>2048m</glassfish.maxHeapSize>

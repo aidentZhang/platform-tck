@@ -28,7 +28,7 @@
 
     <groupId>jakarta.tck</groupId>
     <artifactId>javaee-module-tck-install</artifactId>
-    <version>11.0.1</version>
+    <version>12.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>TCK: Install Jakarta Javaee Module TCK</name>
 
@@ -36,11 +36,12 @@
         <tck.test.javaee.module.file>jakartaeetck-${tck.test.javaee.module.version}-dist.zip</tck.test.javaee.module.file>
         <tck.test.javaee.module.url>https://download.eclipse.org/ee4j/jakartaee-tck/jakartaee11/staged/eftl/${tck.test.javaee.module.file}</tck.test.javaee.module.url>
         
-        <tck.test.javaee.module.version>11.0.1-SNAPSHOT</tck.test.javaee.module.version>
+        <tck.test.javaee.module.version>12.0.0-SNAPSHOT</tck.test.javaee.module.version>
     </properties>
 
     <build>
         <plugins>
+            <!-- Disabled: Using local Maven repository instead of downloading
             <plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
@@ -60,28 +61,10 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
             
-            <plugin>
-                <artifactId>maven-install-plugin</artifactId>
-                <executions>
-
-                    <execution>
-                        <id>install-javaee-module-tck-jar</id>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <file>${project.build.directory}/jakartaeetck/artifacts/javaee-tck-${tck.test.javaee.module.version}.jar</file>
-                            <sources>${project.build.directory}/jakartaeetck/artifacts/javaee-tck-${tck.test.javaee.module.version}-sources.jar</sources>
-                            <groupId>jakarta.tck</groupId>
-                            <artifactId>javaee-tck</artifactId>
-                            <version>${tck.test.javaee.module.version}</version>
-                            <packaging>jar</packaging>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!-- Skipped: Using artifact already in local Maven repository -->
+            <!-- No need to install-file since we built it locally -->
 
         </plugins>
     </build>

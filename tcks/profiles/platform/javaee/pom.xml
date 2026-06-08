@@ -137,6 +137,19 @@
                 </configuration>
             </plugin>
 
+            <!-- Configure the main JAR with Automatic-Module-Name -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>glassfish.javaee.module.tck</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
             <!-- Configure the jar with the sources. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
