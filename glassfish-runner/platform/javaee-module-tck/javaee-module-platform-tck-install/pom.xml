@@ -39,51 +39,60 @@
         <tck.test.javaee.module.version>11.0.1-SNAPSHOT</tck.test.javaee.module.version>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.googlecode.maven-download-plugin</groupId>
-                <artifactId>download-maven-plugin</artifactId>
-                <version>1.13.0</version>
-                <configuration>
-                    <url>${tck.test.javaee.module.url}</url>
-                    <unpack>true</unpack>
-                    <outputDirectory>${project.build.directory}</outputDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>download-integrtation-tck</id>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                    </execution>
-                </executions>
-            </plugin>
-            
-            <plugin>
-                <artifactId>maven-install-plugin</artifactId>
-                <executions>
+    <profiles>
+        <profile>
+            <id>download-tck</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
 
-                    <execution>
-                        <id>install-javaee-module-tck-jar</id>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <phase>process-resources</phase>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.googlecode.maven-download-plugin</groupId>
+                        <artifactId>download-maven-plugin</artifactId>
+                        <version>1.13.0</version>
                         <configuration>
-                            <file>${project.build.directory}/jakartaeetck/artifacts/javaee-tck-${tck.test.javaee.module.version}.jar</file>
-                            <sources>${project.build.directory}/jakartaeetck/artifacts/javaee-tck-${tck.test.javaee.module.version}-sources.jar</sources>
-                            <groupId>jakarta.tck</groupId>
-                            <artifactId>javaee-tck</artifactId>
-                            <version>${tck.test.javaee.module.version}</version>
-                            <packaging>jar</packaging>
+                            <url>${tck.test.javaee.module.url}</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+                        <executions>
+                            <execution>
+                                <id>download-integrtation-tck</id>
+                                <goals>
+                                    <goal>wget</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    
+                    <plugin>
+                        <artifactId>maven-install-plugin</artifactId>
+                        <executions>
 
-        </plugins>
-    </build>
+                            <execution>
+                                <id>install-javaee-module-tck-jar</id>
+                                <goals>
+                                    <goal>install-file</goal>
+                                </goals>
+                                <phase>process-resources</phase>
+                                <configuration>
+                                    <file>${project.build.directory}/jakartaeetck/artifacts/javaee-tck-${tck.test.javaee.module.version}.jar</file>
+                                    <sources>${project.build.directory}/jakartaeetck/artifacts/javaee-tck-${tck.test.javaee.module.version}-sources.jar</sources>
+                                    <groupId>jakarta.tck</groupId>
+                                    <artifactId>javaee-tck</artifactId>
+                                    <version>${tck.test.javaee.module.version}</version>
+                                    <packaging>jar</packaging>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>   
+        </profile>
+    </profiles>
 
 </project>
